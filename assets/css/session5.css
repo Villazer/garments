@@ -1,0 +1,67 @@
+/* Session 5 public pages: tracking, toga request, waitlist, restock.
+   Mobile first, system fonts, no external resources. Everything is prefixed s5-
+   so it cannot clash with the Session 1 design system; colours fall back to
+   sensible values when a design-system variable is not defined. */
+.s5-page{--s5-accent:var(--color-primary,#7a1f2b);--s5-ok:#1d6b3a;--s5-warn:#8a5a00;--s5-bad:#a32020;--s5-info:#1f4f7a;
+  --s5-line:#d9d9de;--s5-soft:#f6f6f8;max-width:46rem;margin:0 auto;padding:1rem}
+.s5-page h1{font-size:1.5rem;margin:.2rem 0 .4rem}
+.s5-page h2{font-size:1.15rem;margin:1.4rem 0 .5rem}
+.s5-lead{color:#444;margin:0 0 1rem}
+.s5-card{background:#fff;border:1px solid var(--s5-line);border-radius:10px;padding:1rem;margin:0 0 1rem}
+.s5-field{margin:0 0 .9rem}
+.s5-field label,.s5-label{display:block;font-weight:600;margin:0 0 .25rem}
+.s5-hint{font-size:.88rem;color:#555;margin:.2rem 0 0}
+.s5-input,.s5-select{width:100%;box-sizing:border-box;min-height:2.75rem;padding:.55rem .7rem;font:inherit;border:1px solid #8b8b94;border-radius:8px;background:#fff}
+.s5-input:focus,.s5-select:focus,.s5-btn:focus-visible,.s5-quicklinks a:focus-visible{outline:3px solid #f2b705;outline-offset:2px}
+.s5-btn{display:inline-block;min-height:2.75rem;padding:.6rem 1.1rem;font:inherit;font-weight:600;border-radius:8px;border:1px solid var(--s5-accent);background:var(--s5-accent);color:#fff;text-decoration:none;cursor:pointer;text-align:center}
+.s5-btn--ghost{background:#fff;color:var(--s5-accent)}
+.s5-btn--danger{background:var(--s5-bad);border-color:var(--s5-bad)}
+.s5-btn--block{display:block;width:100%}
+.s5-error{color:var(--s5-bad);font-size:.9rem;margin:.25rem 0 0}
+.s5-alert{border-left:5px solid var(--s5-info);background:var(--s5-soft);padding:.8rem 1rem;border-radius:6px;margin:0 0 1rem}
+.s5-alert h3{margin:0 0 .25rem;font-size:1.05rem}
+.s5-alert p{margin:0}
+.s5-alert--success{border-color:var(--s5-ok)}.s5-alert--warning{border-color:var(--s5-warn)}.s5-alert--error{border-color:var(--s5-bad)}
+.s5-hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+.s5-ref{font-size:1.6rem;font-weight:700;letter-spacing:.06em;word-break:break-all;margin:.2rem 0}
+.s5-meta{display:grid;grid-template-columns:1fr;gap:.35rem;margin:0}
+.s5-meta div{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dashed var(--s5-line);padding:.3rem 0}
+.s5-meta dt{color:#555}.s5-meta dd{margin:0;text-align:right;font-weight:600}
+/* timeline: vertical on phones, horizontal from 46rem */
+.s5-timeline{list-style:none;margin:0 0 1rem;padding:0}
+.s5-step{position:relative;padding:0 0 1.1rem 2.4rem}
+.s5-step::before{content:"";position:absolute;left:.8rem;top:1.5rem;bottom:0;width:2px;background:var(--s5-line)}
+.s5-step:last-child::before{display:none}
+.s5-dot{position:absolute;left:0;top:0;width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid var(--s5-line);background:#fff;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;box-sizing:border-box}
+.s5-step--done .s5-dot{background:var(--s5-ok);border-color:var(--s5-ok);color:#fff}
+.s5-step--current .s5-dot{border-color:var(--s5-accent);color:var(--s5-accent);box-shadow:0 0 0 3px rgba(122,31,43,.18)}
+.s5-step--exit .s5-dot{background:var(--s5-bad);border-color:var(--s5-bad);color:#fff}
+.s5-step--todo{color:#6b6b73}
+.s5-step b{display:block}.s5-step small{color:#555}
+@media (min-width:46rem){
+ .s5-timeline{display:flex}
+ .s5-step{flex:1;padding:2.2rem .3rem 0;text-align:center}
+ .s5-step::before{left:50%;right:-50%;top:.85rem;bottom:auto;width:auto;height:2px}
+ .s5-dot{left:50%;margin-left:-.85rem}
+ .s5-meta{grid-template-columns:1fr 1fr;column-gap:2rem}
+}
+.s5-table{width:100%;border-collapse:collapse;font-size:.95rem}
+.s5-table th,.s5-table td{padding:.5rem .4rem;border-bottom:1px solid var(--s5-line);text-align:left;vertical-align:top}
+.s5-table .s5-num{text-align:right;white-space:nowrap}
+.s5-tablewrap{overflow-x:auto}
+.s5-countdown{font-size:1.1rem;font-weight:700}
+.s5-sizes{border:0;padding:0;margin:0 0 1rem}
+.s5-size{display:flex;gap:.6rem;align-items:center;border:1px solid var(--s5-line);border-radius:8px;padding:.6rem .7rem;margin:0 0 .5rem;min-height:2.75rem}
+.s5-size input{width:1.2rem;height:1.2rem;flex:none}
+.s5-size--out{background:var(--s5-soft);color:#666}
+.s5-size span{flex:1}
+.s5-quicklinks{margin:1.5rem 0 0;border-top:1px solid var(--s5-line);padding-top:.8rem}
+.s5-quicklinks ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem .9rem}
+.s5-quicklinks a{display:inline-block;padding:.45rem 0;min-height:1.5rem}
+.s5-day{margin:0 0 1rem}.s5-day h3{margin:0 0 .4rem;font-size:1.05rem}
+.s5-list{list-style:none;margin:0;padding:0}
+.s5-list li{display:flex;flex-wrap:wrap;gap:.3rem .8rem;justify-content:space-between;align-items:center;padding:.55rem 0;border-bottom:1px solid var(--s5-line)}
+.s5-pill{display:inline-block;font-size:.8rem;font-weight:600;border-radius:99px;padding:.1rem .6rem;background:var(--s5-soft);border:1px solid var(--s5-line)}
+.s5-pill--bad{color:var(--s5-bad);border-color:var(--s5-bad)}.s5-pill--warn{color:var(--s5-warn);border-color:var(--s5-warn)}
+details.s5-cancel summary{cursor:pointer;font-weight:600;color:var(--s5-bad);min-height:2.75rem;display:flex;align-items:center}
+@media print{.s5-quicklinks,.s5-btn,details.s5-cancel{display:none}}

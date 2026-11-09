@@ -1,0 +1,22 @@
+/* Print styles: used for order slips and reports (linked with media="print"). */
+@page { margin: 15mm; }
+body { background: #fff !important; color: #000; font-size: 11pt; line-height: 1.4; }
+.site-header, .site-footer, .site-nav, .nav-toggle, .skip-link,
+.staff-topbar, .staff-sidebar, .pagination, .alert__close,
+.btn, .tab-list, .no-print { display: none !important; }
+.site-main, .staff-main { padding: 0; min-height: 0; max-width: none; }
+.staff-layout { display: block; }
+.container { max-width: none; padding: 0; }
+.card { box-shadow: none; border: 1px solid #000; break-inside: avoid; }
+.card__header, .card__footer { background: none; border-color: #000; color: #000; }
+.table-responsive { overflow: visible; border: 0; }
+.table { font-size: 10pt; }
+.table th, .table td { border: 1px solid #000; padding: 4px 6px; }
+.table thead th { background: #e6e6e6 !important; color: #000; }
+.table tbody tr:hover { background: none; }
+.tab-panel[hidden] { display: block !important; }
+.badge { border: 1px solid #000; background: none !important; color: #000 !important; }
+a { color: #000; text-decoration: none; }
+h1, h2, h3 { color: #000; break-after: avoid; }
+tr, img { break-inside: avoid; }
+.print-only { display: block !important; }
