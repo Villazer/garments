@@ -1,0 +1,20 @@
+SESSION 5 - SMALL EDITS TO EXISTING FILES (I could not see the Session 1-3 source, so these are snippets)
+
+1) Header or footer links (so every public page is reachable from every page)
+   Easiest: in your public footer partial (the one CATALOG_FOOTER loads), add:
+
+     <?php require_once __DIR__ . '/public5_common.php'; echo s5_quicklinks_html(); ?>
+
+   (adjust the path so it points at includes/public5_common.php)
+   Or: add these entries to public_nav_items() in the same shape as the existing ones:
+     Toga rental -> toga_request.php | Track an order -> track.php
+     Restock schedule -> restock.php | Waitlist -> waitlist.php
+   s5_public_links() returns the full list of public pages if you want one source of truth.
+
+2) Restock link on out-of-stock item pages (item.php, Session 3)
+   Where item.php prints the out-of-stock note for an item or size, add:
+
+     <?php require_once __DIR__ . '/includes/restock_lib.php'; echo rs_item_link_html((int) $item['item_id']); ?>
+
+   (use whatever variable item.php already uses for the item id)
+   The out-of-stock size rows already link to waitlist.php?variant= (Session 3); that page now works.
