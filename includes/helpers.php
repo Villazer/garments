@@ -350,6 +350,7 @@ function public_nav_items(): array
         'catalog' => ['Catalog', 'catalog.php'],
         'track'   => ['Track Order', 'track.php'],
         'restock' => ['Restock Schedule', 'restock.php'],
-        'toga'    => ['Toga Rental', 'toga.php'],
+        // Session 8 fix: the toga page is toga_request.php (toga.php never existed).
+        'toga'    => ['Toga Rental', 'toga_request.php'],
     ];
 }

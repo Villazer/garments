@@ -2,6 +2,13 @@
 /**
  * Order tracking (Session 5): guarded lookup, timeline, next-step text, cancel.
  * Depends on includes/public5_common.php.
+ *
+ * Session 8 changes (two small fixes, nothing else touched):
+ *  1. track_next_step(): a cancelled order now shows its reason, like a declined one.
+ *     Staff cancels store the reason in orders.decline_reason (Session 6) but the
+ *     tracking page never printed it.
+ *  2. track_cancel_order(): a customer cancel now stores "Cancelled by the customer" in
+ *     decline_reason, so that page does not show a blank reason for it.
  */
 
 const TRACK_GENERIC_ERROR = 'We could not find an order with those details. Check the reference number and the contact number or email you used when ordering.';
@@ -223,8 +230,10 @@ function track_next_step(array $o): array
             return ['tone' => 'warning', 'title' => 'Your reservation expired',
                 'text' => 'The hold ended before a payment was recorded, so the stock was released to other students. You can place a new request from the catalog.'];
         case 'cancelled':
+            // Session 8: show the reason (staff cancels store it in decline_reason).
+            $why = trim((string) ($o['decline_reason'] ?? ''));
             return ['tone' => 'warning', 'title' => 'This order was cancelled',
-                'text' => 'Any reserved stock has been released. You can place a new request from the catalog at any time.'];
+                'text' => ($why !== '' ? 'Reason: ' . $why . '. ' : '') . 'Any reserved stock has been released. You can place a new request from the catalog at any time.'];
         case 'unclaimed':
             return ['tone' => 'warning', 'title' => 'Paid but not yet claimed',
                 'text' => 'Your payment was recorded but the claim period has passed. Please visit the Garment Shop as soon as possible so staff can check what can still be released to you.'];
@@ -289,7 +298,7 @@ function track_cancel_order(int $order_id): array
               WHERE oi.order_id = ? AND r.status = 'reserved'",
             [$order_id]
         );
-        s5_exec("UPDATE orders SET status = 'cancelled' WHERE order_id = ?", [$order_id]);
+        s5_exec("UPDATE orders SET status = 'cancelled', decline_reason = 'Cancelled by the customer' WHERE order_id = ?", [$order_id]);
         s5_exec(
             "INSERT INTO audit_logs (user_id, action, entity_type, entity_id, old_values, new_values, ip_address)
              VALUES (NULL, 'order_cancelled_by_customer', 'orders', ?, ?, '{\"status\":\"cancelled\"}', ?)",

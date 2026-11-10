@@ -3,10 +3,13 @@
  * Public site header. Set these BEFORE including it:
  *   $page_title  (string)  page name, shown in the browser tab
  *   $active_nav  (string)  key from public_nav_items(), e.g. 'catalog'
+ *                          ($nav_active is accepted too: the Session 3-5 pages set that name)
  * Optional: $body_class, $meta_description, $page_css (array of asset paths).
  */
 $page_title       = $page_title ?? '';
-$active_nav       = $active_nav ?? '';
+// Session 8 fix: the catalog, tracking, toga and restock pages set $nav_active, not $active_nav,
+// so the menu never highlighted the current page.
+$active_nav       = (($active_nav ?? '') !== '') ? $active_nav : ($nav_active ?? '');
 $body_class       = $body_class ?? '';
 $meta_description = $meta_description ?? 'Check uniform and toga stock and prices, then reserve in advance.';
 $page_css         = $page_css ?? [];

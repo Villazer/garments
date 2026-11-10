@@ -1,0 +1,64 @@
+/* Session 8 - toga rentals, walk-in orders, customer history. All classes use the s8- prefix. */
+.s8-muted{color:#5f6b76}
+.s8-head h1{margin:0 0 .25rem}
+.s8-alert{padding:.75rem 1rem;border-radius:6px;margin:0 0 1rem;border:1px solid #ccc;background:#f7f7f7}
+.s8-alert-error{background:#fdecec;border-color:#e3a1a1;color:#7a1414}
+.s8-alert-warn{background:#fff6dd;border-color:#ecd08a;color:#6b4a00}
+.s8-alert-info{background:#eef5fd;border-color:#b5cfee}
+.s8-banner{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;justify-content:space-between}
+.s8-tabs{display:flex;flex-wrap:wrap;gap:.35rem;margin:.75rem 0}
+.s8-tabs a{padding:.35rem .7rem;border:1px solid #d0d7de;border-radius:999px;text-decoration:none;color:inherit;font-size:.9rem;background:#fff}
+.s8-tabs a span{opacity:.7;margin-left:.2rem}
+.s8-tabs a.is-active{background:#1f3a5f;border-color:#1f3a5f;color:#fff}
+.s8-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.75rem;align-items:end;margin:1rem 0;padding:1rem;border:1px solid #d0d7de;border-radius:8px;background:#fff}
+.s8-filters label,.s8-form label{display:flex;flex-direction:column;gap:.25rem;font-size:.9rem;font-weight:600}
+.s8-filters input,.s8-filters select,.s8-form input,.s8-form select,.s8-form textarea,.s8-card input,.s8-card select,.s8-card textarea{width:100%;padding:.5rem;border:1px solid #b6bfc8;border-radius:6px;font:inherit;box-sizing:border-box;min-height:2.5rem}
+.s8-btn{display:inline-block;padding:.5rem .9rem;border:1px solid #1f3a5f;background:#1f3a5f;color:#fff;border-radius:6px;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;line-height:1.3;min-height:2.5rem;box-sizing:border-box}
+.s8-btn:hover{background:#162b47}
+.s8-btn-light{background:#fff;color:#1f3a5f}
+.s8-btn-light:hover{background:#eef2f7}
+.s8-btn-danger{background:#b42318;border-color:#b42318}
+.s8-btn-sm{padding:.25rem .6rem;font-size:.85rem;min-height:0}
+.s8-actions{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.s8-table-wrap{overflow-x:auto;border:1px solid #e3e8ed;border-radius:8px;background:#fff;margin:0 0 1rem}
+.s8-table{width:100%;border-collapse:collapse;font-size:.92rem}
+.s8-table th,.s8-table td{padding:.55rem .65rem;border-bottom:1px solid #e3e8ed;text-align:left;vertical-align:top}
+.s8-table th{font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;color:#5f6b76;background:#f6f8fa;white-space:nowrap}
+.s8-num{text-align:right!important;white-space:nowrap;font-variant-numeric:tabular-nums}
+.s8-row-overdue{background:#fdecea}
+.s8-badge{display:inline-block;padding:.12rem .55rem;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap;background:#eee;color:#555}
+.s8-badge-requested{background:#fff3d1;color:#7a5200}
+.s8-badge-reserved{background:#e5eff9;color:#1a5a9e}
+.s8-badge-issued{background:#e5f3eb;color:#1c6b45}
+.s8-badge-returned{background:#e7e8f6;color:#3a3585}
+.s8-badge-overdue{background:#b42318;color:#fff;letter-spacing:.02em}
+.s8-badge-cancelled,.s8-badge-declined{background:#ececec;color:#555}
+.s8-late{color:#b42318;font-weight:700}
+.s8-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.s8-card{background:#fff;border:1px solid #d0d7de;border-radius:8px;padding:1rem;margin:1rem 0}
+.s8-card h2{margin:.1rem 0 .6rem;font-size:1.05rem}
+.s8-dl{display:grid;grid-template-columns:max-content 1fr;gap:.3rem 1rem;margin:0}
+.s8-dl dt{color:#5f6b76}
+.s8-dl dd{margin:0;word-break:break-word}
+.s8-action{border:1px solid #d0d7de;border-radius:8px;margin:.6rem 0;padding:.25rem .75rem;background:#fbfcfd}
+.s8-action summary{cursor:pointer;font-weight:600;padding:.5rem 0}
+.s8-form{display:grid;gap:.7rem;max-width:620px;padding:.25rem 0 .75rem}
+.s8-two{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.s8-hint{font-size:.82rem;color:#5f6b76;font-weight:400}
+.s8-error{color:#a11414;font-size:.85rem;margin:.1rem 0 0;font-weight:600}
+.s8-radio{display:flex!important;flex-direction:row!important;align-items:flex-start;gap:.5rem!important;font-weight:400!important}
+.s8-radio input{width:auto;min-height:0;margin-top:.25rem}
+.s8-cart td{vertical-align:middle}
+.s8-cart select{min-width:16rem}
+.s8-cart input[type=number]{width:5rem}
+.s8-avail{font-size:.85rem}
+.s8-avail-out{color:#b42318;font-weight:700}
+.s8-avail-low{color:#7a5200;font-weight:700}
+.s8-avail-over{color:#7a5200}
+.s8-total{font-size:1.15rem;font-weight:700;text-align:right}
+.s8-results{list-style:none;margin:.5rem 0 0;padding:0}
+.s8-results li{padding:.45rem 0;border-bottom:1px solid #e3e8ed}
+@media (max-width:700px){
+  .s8-two{grid-template-columns:1fr}
+  .s8-cart select{min-width:0;width:100%}
+}
