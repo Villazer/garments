@@ -8,6 +8,10 @@ declare(strict_types=1);
  * shared bootstrap and the public layout partials are auto-detected. If your
  * names differ, add them to the three lists below (the first file that exists
  * wins). Nothing else in Session 3 depends on those names.
+ *
+ * Session 9: loads includes/shop_settings.php and, while Settings > "Accept
+ * online reservations" is off, blocks checkout and toga requests (the only
+ * other change to this file).
  */
 if (!defined('CATALOG_ROOT')) {
     define('CATALOG_ROOT', dirname(__DIR__));
@@ -59,6 +63,10 @@ define('CATALOG_FOOTER', catalog_first_existing($catalog_footer_files) ?? CATALO
 
 require_once __DIR__ . '/catalog_data.php';
 require_once __DIR__ . '/catalog_view.php';
+
+// Session 9: shop details, reservations switch and quantity ceiling.
+require_once __DIR__ . '/shop_settings.php';
+shop_guard_public_posts();
 
 /** Tags for the catalog stylesheet and script; echo them right after the header partial. */
 function catalog_asset_tags(): string

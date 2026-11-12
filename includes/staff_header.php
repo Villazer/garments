@@ -5,6 +5,9 @@
  *   $page_title    string  shown in <title> and as the page heading
  *   $nav_active    string  nav key to highlight (see staff_nav_items())
  *   $staff_layout  'panel' (default, requires sign-in) or 'bare' (login, 404 when signed out)
+ *
+ * Session 9: after sign-in is confirmed, the auto-expiry job is run lazily
+ * (throttled by Settings, never blocks the page). That is the only change.
  */
 $staff_layout = $staff_layout ?? 'panel';
 $page_title   = $page_title ?? 'Staff panel';
@@ -12,6 +15,11 @@ $nav_active   = $nav_active ?? '';
 
 // Runs before any output, so an anonymous visitor is redirected cleanly.
 $staff_user = ($staff_layout === 'panel') ? require_login() : current_user();
+
+if ($staff_layout === 'panel' && $staff_user) {
+    require_once AUTH_ROOT . '/includes/expiry.php';
+    expiry_lazy_run();
+}
 
 if (!headers_sent()) {
     header('Cache-Control: no-store');           // signed-in pages must not sit in a shared cache

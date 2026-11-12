@@ -1,18 +1,19 @@
+<?php if (!function_exists('shop_info')) { require_once __DIR__ . '/shop_settings.php'; } ?>
 </main>
 
 <footer class="site-footer">
     <div class="container site-footer__grid">
         <div>
-            <p class="site-footer__title"><?= e(config('shop.name')) ?></p>
+            <p class="site-footer__title"><?= e(shop_info('name')) ?></p>
             <p><?= e(config('shop.office')) ?><br><?= e(config('shop.school')) ?></p>
         </div>
         <div>
             <p class="site-footer__title">Visit us</p>
-            <p><?= e(config('shop.address')) ?><br><?= e(config('shop.hours')) ?></p>
+            <p><?= e(shop_info('address')) ?><br><?= e(shop_info('hours')) ?></p>
         </div>
         <div>
             <p class="site-footer__title">Contact</p>
-            <p><?= e(config('shop.phone')) ?><br><?= e(config('shop.email')) ?></p>
+            <p><?= e(shop_info('phone')) ?><br><?= e(shop_info('email')) ?></p>
         </div>
     </div>
     <div class="container site-footer__base">
