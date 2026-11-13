@@ -1,5 +1,6 @@
-/* Shared behaviour: menu toggles, tabs, dismissible alerts, confirm prompts, print buttons.
-   Plain JavaScript, no dependencies. Pages work without it (progressive enhancement). */
+/* Shared behaviour: menu toggles, tabs, dismissible alerts, confirm prompts, print buttons,
+   and (Session 10) field-error accessibility. Plain JavaScript, no dependencies.
+   Pages work without it (progressive enhancement). */
 (function () {
   'use strict';
 
@@ -61,4 +62,29 @@
     var link = ev.target.closest('a[data-confirm]');
     if (link && !window.confirm(link.getAttribute('data-confirm'))) { ev.preventDefault(); }
   });
+
+  // Session 10 accessibility: tie each field error message to its field (aria-invalid + aria-describedby)
+  // and move keyboard focus to the first field with an error. Handles every error class the site uses.
+  var sel = '.form-error, .rv-field-err, .s5-error, .sp-field-error, .inv-error';
+  var first = null;
+  document.querySelectorAll(sel).forEach(function (msg, i) {
+    if (!msg.textContent.trim()) { return; }
+    var control = null;
+    if (msg.id && msg.id.indexOf('err-') === 0) { control = document.getElementById(msg.id.slice(4)); }
+    var node = msg.previousElementSibling;
+    while (!control && node) {
+      if (/^(INPUT|SELECT|TEXTAREA)$/.test(node.tagName)) { control = node; }
+      else if (node.querySelector) { control = node.querySelector('input,select,textarea'); }
+      node = control ? null : node.previousElementSibling;
+    }
+    if (!control && msg.parentElement) { control = msg.parentElement.querySelector('input,select,textarea'); }
+    if (!control || control.type === 'hidden') { return; }
+    if (!msg.id) { msg.id = 'fe-' + i; }
+    control.setAttribute('aria-invalid', 'true');
+    var by = (control.getAttribute('aria-describedby') || '').split(' ').filter(Boolean);
+    if (by.indexOf(msg.id) < 0) { by.push(msg.id); }
+    control.setAttribute('aria-describedby', by.join(' '));
+    if (!first) { first = control; }
+  });
+  if (first && typeof first.focus === 'function') { first.focus(); }
 })();

@@ -1,5 +1,5 @@
-// Staff panel: mobile menu toggle and confirm prompts. Progressive enhancement only:
-// without JavaScript the sidebar simply stays visible and forms still work.
+// Staff panel: mobile menu toggle, confirm prompts, field-error accessibility (Session 10).
+// Progressive enhancement only: without JavaScript the sidebar simply stays visible and forms still work.
 (function () {
   'use strict';
 
@@ -19,4 +19,23 @@
       ev.preventDefault();
     }
   });
+
+  // Link each error message to its field and focus the first one.
+  var first = null;
+  document.querySelectorAll('.sp-field-error, .inv-error').forEach(function (msg, i) {
+    if (!msg.textContent.trim()) { return; }
+    var control = null, node = msg.previousElementSibling;
+    while (!control && node) {
+      if (/^(INPUT|SELECT|TEXTAREA)$/.test(node.tagName)) { control = node; }
+      else if (node.querySelector) { control = node.querySelector('input,select,textarea'); }
+      node = control ? null : node.previousElementSibling;
+    }
+    if (!control && msg.parentElement) { control = msg.parentElement.querySelector('input,select,textarea'); }
+    if (!control || control.type === 'hidden') { return; }
+    if (!msg.id) { msg.id = 'fe-' + i; }
+    control.setAttribute('aria-invalid', 'true');
+    control.setAttribute('aria-describedby', ((control.getAttribute('aria-describedby') || '') + ' ' + msg.id).trim());
+    if (!first) { first = control; }
+  });
+  if (first && first.focus) { first.focus(); }
 })();

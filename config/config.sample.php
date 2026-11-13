@@ -17,20 +17,45 @@ return [
     'timezone'    => 'Asia/Manila',
 
     // true = show errors and allow setup_check.php / styleguide.php.
-    // MUST be false on a live server.
-    'debug'       => true,
+    // MUST be false on the shop's real server. (Default is now false.)
+    'debug'       => false,
 
     'session_name' => 'garments_sid',
 
-    // --- Database (XAMPP defaults) ------------------------------------
+    // --- Database -----------------------------------------------------
+    // XAMPP defaults are root with an empty password: fine on a PC used only for
+    // development, NOT for the real server. Create a dedicated user (README, section 4).
     'db' => [
         'host'    => '127.0.0.1',
         'port'    => 3306,
         'name'    => 'wmsu_garment_shop',
-        'user'    => 'root',
-        'pass'    => '',
+        'user'    => 'garments_app',
+        'pass'    => 'CHANGE-THIS-PASSWORD',
         'charset' => 'utf8mb4',
     ],
+
+    // --- Security (Session 10) ----------------------------------------
+    // IP addresses of a reverse proxy / load balancer in front of the site (empty = none).
+    // Needed on some web hosts and Cloudflare, otherwise every visitor looks like one IP and
+    // the rate limits hit everybody at once. Never list addresses you do not control.
+    'trusted_proxies' => [],
+    // Send Strict-Transport-Security. Turn on only after the site works over HTTPS.
+    'hsts' => false,
+    // Send a Content-Security-Policy header. Turn on after clicking through every page once.
+    'csp'  => false,
+
+    // --- Optional keys read by earlier sessions (defaults shown) -------
+    // 'auth' => [
+    //     'idle_timeout_minutes'   => 30,
+    //     'absolute_timeout_hours' => 12,
+    //     'max_attempts_per_user'  => 5,
+    //     'max_attempts_per_ip'    => 15,
+    //     'lockout_minutes'        => 10,
+    //     'min_password_length'    => 8,
+    // ],
+    // 'uploads'   => ['max_bytes' => 2097152],
+    // 'inventory' => ['catalog_roles' => ['manager', 'admin']],
+    // 'ui'        => ['main_css' => 'css/app.css'],
 
     // --- Validation defaults ------------------------------------------
     // Used when the settings table has no 'student_no_pattern' row.
@@ -39,7 +64,8 @@ return [
 
     'items_per_page' => 12,
 
-    // --- Shop information (public footer). SAMPLE values: confirm with the shop.
+    // --- Shop information (public footer fallback). SAMPLE values: confirm with the shop.
+    // Settings > Shop details overrides these once saved.
     'shop' => [
         'name'     => 'WMSU Garment Shop',
         'office'   => 'Resource Generation Office',
